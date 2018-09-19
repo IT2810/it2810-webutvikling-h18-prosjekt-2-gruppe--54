@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import Tab from './Tab';
 
+//Holder styr på Tab-komponentene og hvilken av de som er aktiv.
 class Tabs extends Component {
   static propTypes = {
     children: PropTypes.instanceOf(Array).isRequired,
@@ -16,6 +16,7 @@ class Tabs extends Component {
     };
   }
 
+  //Setter hvilken Tab som er aktiv
   onClickTabItem = (tab) => {
     this.setState({ activeTab: tab });
   }
