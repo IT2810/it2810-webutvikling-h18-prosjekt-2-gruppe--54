@@ -1,6 +1,8 @@
 # it2810-webutvikling-h18-prosjekt-2-gruppe--54
 
 
+Dokumentasjon:
+
 Bilder, sanger og tekst:
 Vi valgte å laste ned ferdiglagde bilder, lyder og dikt istedenfor å lage alt selv. Vi fant diktene på www.poetryfoundation.org, sangene på www.freesound.org og bildene på http://www.averybunch.com/svg-files. 
 
