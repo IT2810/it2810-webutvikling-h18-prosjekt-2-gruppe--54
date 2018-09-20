@@ -2,17 +2,8 @@ import React, { Component } from 'react';
 import {render} from "react-dom";
 import './App.css';
 import Tabs from './Tabs';
-import kunst1 from './Pictures/animal1.svg';
-import kunst2 from './Pictures/animal2.svg';
-import kunst3 from './Pictures/animal3.svg';
-import kunst4 from './Pictures/animal4.svg';
-
-import sound1 from './Sounds/technosound1.mp3';
-import sound2 from './Sounds/technosound2.mp3';
-import sound3 from './Sounds/technosound3.mp3';
-import sound4 from './Sounds/technosound4.mp3';
 import Grid from 'react-css-grid';
-
+import poems from './Poems/poems.json';
 
 
 
@@ -22,6 +13,228 @@ require('./styles.css');
 
 
 class App extends Component {
+
+  constructor() {
+    super();
+    
+    this.state = {
+      soundTheme: "", //type musikk som spilles av i de forskjellige tabbene
+      textTheme: "", //type dikt som vises i de forskjellige tabbene
+      artTheme: "", //type bilde som vises i de forskjellige tabbene
+
+      bilde: "", //bildet som vises i tab 1
+      lyd: "", //sangen som spilles i tab 1
+      dikt: "", //diktet som vises i tab 1
+
+      bilde2: "", //bildet som vises i tab 2
+      lyd2: "", //sangen som spilles i tab 2
+      dikt2: "", //diktet som vises i tab 2
+
+      bilde3: "", //bildet som vises i tab 3
+      lyd3: "", //sangen som spilles i tab 3
+      dikt3: "", //diktet som vises i tab 3
+
+      bilde4: "", //bildet som vises i tab 4
+      lyd4: "", //sangen som spilles i tab 4
+      dikt4: "", //diktet som vises i tab 4
+    };
+    
+    this.handleMusicChange = this.handleMusicChange.bind(this);
+    this.handleArtChange = this.handleArtChange.bind(this);
+    this.handleTextChange = this.handleTextChange.bind(this);
+    this.setState = this.setState.bind(this);
+    this.getArtUrl = this.getArtUrl.bind(this);
+    this.getSoundUrl = this.getSoundUrl.bind(this);
+    this.getPoemUrl = this.getPoemUrl.bind(this);
+    this.getPoem = this.getPoem.bind(this);
+  }
+  
+  
+  getArtUrl(number) {
+    var artUrls = ['/Pictures/animal1.svg',
+                  '/Pictures/animal2.svg',
+                  '/Pictures/animal3.svg',
+                  '/Pictures/animal4.svg',
+                  '/Pictures/love1.svg',
+                  '/Pictures/love2.svg',
+                  '/Pictures/love3.svg',
+                  '/Pictures/love4.svg',
+                  '/Pictures/tech1.svg',
+                  '/Pictures/tech2.svg',
+                  '/Pictures/tech3.svg',
+                  '/Pictures/tech4.svg'  
+                  ]
+    return artUrls[number];
+  }
+
+  getSoundUrl(number) {
+    var soundUrls = ['/Sounds/guitarsound1.mp3',
+                  '/Sounds/guitarsound2.mp3',
+                  '/Sounds/guitarsound3.mp3',
+                  '/Sounds/guitarsound4.mp3',
+                  '/Sounds/pianosound1.mp3',
+                  '/Sounds/pianosound2.mp3',
+                  '/Sounds/pianosound3.mp3',
+                  '/Sounds/pianosound4.mp3',
+                  '/Sounds/technosound1.mp3',
+                  '/Sounds/technosound2.mp3',
+                  '/Sounds/technosound3.mp3',
+                  '/Sounds/technosound4.mp3'  
+                  ]
+    return soundUrls[number];
+  }
+
+  getPoemUrl(number) {
+    var poemUrls = ['/Poems/artpoem1.json',
+                  '/Poems/artpoem2.json',
+                  '/Poems/artpoem3.json',
+                  '/Poems/artpoem4.json',
+                  '/Poems/lovepoem1.json',
+                  '/Poems/lovepoem2.json',
+                  '/Poems/lovepoem3.json',
+                  '/Poems/lovepoem4.json',
+                  '/Poems/naturepoem1.json',
+                  '/Poems/naturepoem2.json',
+                  '/Poems/naturepoem3.json',
+                  '/Poems/naturepoem4.json'  
+                  ]
+    return poemUrls[number];
+  }
+
+  
+  getPoem(number) {
+    var url = this.getPoemUrl(number);
+    var dikt = "";
+    return fetch(url)
+    .then(response => response.json())
+    .then(data => {return data.dikt});
+  }
+
+  //kjøres når man velger musikk-type
+  handleMusicChange(event) {
+    this.setState({
+      soundTheme: event.target.value
+    }, function() {
+
+        if (this.state.soundTheme == "guitar") {
+          this.setState({
+            lyd: this.getSoundUrl(0),
+            lyd2: this.getSoundUrl(1),
+            lyd3: this.getSoundUrl(2),
+            lyd4: this.getSoundUrl(3)
+          })
+        }
+        else if (this.state.soundTheme == "piano") {
+          this.setState({
+            lyd: this.getSoundUrl(4),
+            lyd2: this.getSoundUrl(5),
+            lyd3: this.getSoundUrl(6),
+            lyd4: this.getSoundUrl(7)
+          })
+        }
+        else if (this.state.soundTheme == "techno") {
+          this.setState({
+            lyd: this.getSoundUrl(8),
+            lyd2: this.getSoundUrl(9),
+            lyd3: this.getSoundUrl(10),
+            lyd4: this.getSoundUrl(11)
+          })
+        }       
+      }
+
+    );
+  };
+
+  //kjøres når man velger bilde-type
+  handleArtChange(event) {
+    this.setState({
+      artTheme: event.target.value
+    }, function() {
+        if (this.state.artTheme == "animal") {
+          this.setState({
+            bilde: this.getArtUrl(0),
+            bilde2: this.getArtUrl(1),
+            bilde3: this.getArtUrl(2),
+            bilde4: this.getArtUrl(3)
+          })
+          
+        }
+        else if (this.state.artTheme == "love") {
+          this.setState({
+            bilde: this.getArtUrl(4),
+            bilde2: this.getArtUrl(5),
+            bilde3: this.getArtUrl(6),
+            bilde4: this.getArtUrl(7)
+          })
+        }
+        else if (this.state.artTheme == "technology") {
+          this.setState({
+            bilde: this.getArtUrl(8),
+            bilde2: this.getArtUrl(9),
+            bilde3: this.getArtUrl(10),
+            bilde4: this.getArtUrl(11)
+          })
+        }        
+      }
+
+    );
+  };
+
+  //kjøres når man velger dikt-type
+  handleTextChange(event) {
+    this.setState({
+      textTheme: event.target.value
+    }, function() {
+
+      if (this.state.textTheme == "art") {
+        this.getPoem(0).then(response => this.setState({
+          dikt: response
+        }))
+        this.getPoem(1).then(response => this.setState({
+          dikt2: response
+        }))
+        this.getPoem(2).then(response => this.setState({
+          dikt3: response
+        }))
+        this.getPoem(3).then(response => this.setState({
+          dikt4: response
+        }))
+      }
+      else if (this.state.textTheme == "love") {
+        this.getPoem(4).then(response => this.setState({
+          dikt: response
+        }))
+        this.getPoem(5).then(response => this.setState({
+          dikt2: response
+        }))
+        this.getPoem(6).then(response => this.setState({
+          dikt3: response
+        }))
+        this.getPoem(7).then(response => this.setState({
+          dikt4: response
+        }))
+      }
+      else if (this.state.textTheme == "nature") {
+        this.getPoem(8).then(response => this.setState({
+          dikt: response
+        }))
+        this.getPoem(9).then(response => this.setState({
+          dikt2: response
+        }))
+        this.getPoem(10).then(response => this.setState({
+          dikt3: response
+        }))
+        this.getPoem(11).then(response => this.setState({
+          dikt4: response
+        }))
+      }
+    });
+  };
+
+
+
+
+
 
   playPause() {
     var play = document.getElementById("playButton");
@@ -61,13 +274,13 @@ class App extends Component {
                       <rect width="25" height="6" x="0" y="14" fill="red" />
                     </g>
                   </svg>
-                  <audio id="song" loop src={sound1}></audio>
+                  <audio id="song" loop src={this.state.lyd}></audio>
                 </div>
-                <p className="grid-item2">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                <p className="grid-item2" id="par1">
+                  {this.state.dikt}
                 </p>
                 <div className="grid-item3">
-                  <img src={kunst1} className="pic" alt="art" />
+                  <img src={this.state.bilde} className="pic" alt="art" />
                 </div>
               </div>
             </div>
@@ -84,13 +297,13 @@ class App extends Component {
                       <rect width="25" height="6" x="0" y="14" fill="red" />
                     </g>
                   </svg>
-                  <audio id="song" loop src={sound2}></audio>
+                  <audio id="song" loop src={this.state.lyd2}></audio>
                 </div>
                 <p className="grid-item2">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                {this.state.dikt2}
                 </p>
                 <div className="grid-item3">
-                  <img src={kunst2} className="pic" alt="art" />
+                  <img src={this.state.bilde2} className="pic" alt="art" />
                 </div>
               </div>
             </div>
@@ -107,13 +320,13 @@ class App extends Component {
                       <rect width="25" height="6" x="0" y="14" fill="red" />
                     </g>
                   </svg>
-                  <audio id="song" loop src={sound3}></audio>
+                  <audio id="song" loop src={this.state.lyd3}></audio>
                 </div>
                 <p className="grid-item2">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                {this.state.dikt3}
                 </p>
                 <div className="grid-item3">
-                  <img src={kunst3} className="pic" alt="art" />
+                  <img src={this.state.bilde3} className="pic" alt="art" />
                 </div>
               </div>
             </div>
@@ -130,13 +343,13 @@ class App extends Component {
                       <rect width="25" height="6" x="0" y="14" fill="red" />
                     </g>
                   </svg>
-                  <audio id="song" loop src={sound4}></audio>
+                  <audio id="song" loop src={this.state.lyd4}></audio>
                 </div>
                 <p className="grid-item2">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                {this.state.dikt4}
                 </p>
                 <div className="grid-item3">
-                  <img src={kunst4} className="pic" alt="art" />
+                  <img src={this.state.bilde4} className="pic" alt="art" />
                 </div>
               </div>
             </div>
@@ -148,21 +361,21 @@ class App extends Component {
             <div id="radioBoxes" className="grid-item4">
               <form className="radioForm">
                 <label>Bilde</label>
-                <label><input type="radio" checked name="gender" value="1" /> Alternativ 1</label>
-                <label><input type="radio" name="gender" value="2" /> Alternativ 2</label>
-                <label><input type="radio" name="gender" value="3" /> Alternativ 3</label>
+                <label><input type="radio" checked={this.state.artTheme === "animal"}  value="animal" onChange={this.handleArtChange} /> Animal</label>
+                <label><input type="radio" checked={this.state.artTheme === "love"}  value="love" onChange={this.handleArtChange} /> Love</label>
+                <label><input type="radio" checked={this.state.artTheme === "technology"}  value="technology" onChange={this.handleArtChange} /> Technology</label>
               </form>
               <form className="radioForm">
                 <label>Lyd</label>
-                <label><input type="radio" checked name="gender" value="1"  /> Alternativ 1</label>
-                <label><input type="radio" name="gender" value="2" /> Alternativ 2</label>
-                <label><input type="radio" name="gender" value="3" /> Alternativ 3</label>
+                <label><input type="radio" checked={this.state.soundTheme === "guitar"}  value="guitar" onChange={this.handleMusicChange}/> Guitar</label>
+                <label><input type="radio" checked={this.state.soundTheme === "piano"}  value="piano" onChange={this.handleMusicChange}/> Piano</label>
+                <label><input type="radio" checked={this.state.soundTheme === "techno"}  value="techno" onChange={this.handleMusicChange}/> Techno</label>
               </form>
               <form className="radioForm">
                 <label>Tekst</label>
-                <label><input type="radio" checked name="gender" value="1"  /> Alternativ 1</label>
-                <label><input type="radio" name="gender" value="2" /> Alternativ 2</label>
-                <label><input type="radio" name="gender" value="3" /> Alternativ 3</label>
+                <label><input type="radio" checked={this.state.textTheme === "art"}  value="art"  onChange={this.handleTextChange}/> Art</label>
+                <label><input type="radio" checked={this.state.textTheme === "love"}  value="love" onChange={this.handleTextChange}/> Love</label>
+                <label><input type="radio" checked={this.state.textTheme === "nature"}  value="nature" onChange={this.handleTextChange}/> Nature</label>
               </form>
             </div>
           </div>   
@@ -170,6 +383,7 @@ class App extends Component {
         {/*</div>  */}
         {/*</Grid>*/}
       </div>
+           
     );
   }
 }
