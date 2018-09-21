@@ -237,6 +237,10 @@ class App extends Component {
 
 
   playPause() {
+    if(this.state.soundTheme.length < 1) {
+      alert("Please select a song category!");
+      return;
+    }
     var play = document.getElementById("playButton");
     var pause = document.getElementById("pauseButton");
     var song = document.getElementById('song');
@@ -268,8 +272,8 @@ class App extends Component {
                 <div className="grid-item1">
                   <label>play/pause</label>
                   <svg width="25px" height="25px">
-                    <polygon id="playButton" class="toggleButton" onClick={() => this.playPause()} points="0,0 25,12 0,24" fill="#2BB334" />
-                    <g id="pauseButton" class="toggleButton" onClick={() => this.playPause()}>
+                    <polygon id="playButton" className="toggleButton" onClick={() => this.playPause()} points="0,0 25,12 0,24" fill="#2BB334" />
+                    <g id="pauseButton" className="toggleButton" onClick={() => this.playPause()}>
                       <rect width="25" height="6" x="0" y="4" fill="red" />
                       <rect width="25" height="6" x="0" y="14" fill="red" />
                     </g>
@@ -280,7 +284,7 @@ class App extends Component {
                   {this.state.dikt}
                 </p>
                 <div className="grid-item3">
-                  <img src={this.state.bilde} className="pic" alt="art" />
+                  <img src={this.state.bilde} className="pic" alt="Select a category to load an image." />
                 </div>
               </div>
             </div>
@@ -291,8 +295,8 @@ class App extends Component {
                 <div className="grid-item1">
                   <label>play/pause</label>
                   <svg width="25px" height="25px">
-                    <polygon id="playButton" class="toggleButton" onClick={() => this.playPause()} points="0,0 25,12 0,24" fill="#2BB334" />
-                    <g id="pauseButton" class="toggleButton" onClick={() => this.playPause()}>
+                    <polygon id="playButton" className="toggleButton" onClick={() => this.playPause()} points="0,0 25,12 0,24" fill="#2BB334" />
+                    <g id="pauseButton" className="toggleButton" onClick={() => this.playPause()}>
                       <rect width="25" height="6" x="0" y="4" fill="red" />
                       <rect width="25" height="6" x="0" y="14" fill="red" />
                     </g>
@@ -303,7 +307,7 @@ class App extends Component {
                 {this.state.dikt2}
                 </p>
                 <div className="grid-item3">
-                  <img src={this.state.bilde2} className="pic" alt="art" />
+                  <img src={this.state.bilde2} className="pic" alt="Select a category to load an image." />
                 </div>
               </div>
             </div>
@@ -314,8 +318,8 @@ class App extends Component {
                 <div className="grid-item1">
                   <label>play/pause</label>
                   <svg width="25px" height="25px">
-                    <polygon id="playButton" class="toggleButton" onClick={() => this.playPause()} points="0,0 25,12 0,24" fill="#2BB334" />
-                    <g id="pauseButton" class="toggleButton" onClick={() => this.playPause()}>
+                    <polygon id="playButton" className="toggleButton" onClick={() => this.playPause()} points="0,0 25,12 0,24" fill="#2BB334" />
+                    <g id="pauseButton" className="toggleButton" onClick={() => this.playPause()}>
                       <rect width="25" height="6" x="0" y="4" fill="red" />
                       <rect width="25" height="6" x="0" y="14" fill="red" />
                     </g>
@@ -326,7 +330,7 @@ class App extends Component {
                 {this.state.dikt3}
                 </p>
                 <div className="grid-item3">
-                  <img src={this.state.bilde3} className="pic" alt="art" />
+                  <img src={this.state.bilde3} className="pic" alt="Select a category to load an image." />
                 </div>
               </div>
             </div>
@@ -337,8 +341,8 @@ class App extends Component {
                 <div className="grid-item1">
                   <label>play/pause</label>
                   <svg width="25px" height="25px">
-                    <polygon id="playButton" class="toggleButton" onClick={() => this.playPause()} points="0,0 25,12 0,24" fill="#2BB334" />
-                    <g id="pauseButton" class="toggleButton" onClick={() => this.playPause()}>
+                    <polygon id="playButton" className="toggleButton" onClick={() => this.playPause()} points="0,0 25,12 0,24" fill="#2BB334" />
+                    <g id="pauseButton" className="toggleButton" onClick={() => this.playPause()}>
                       <rect width="25" height="6" x="0" y="4" fill="red" />
                       <rect width="25" height="6" x="0" y="14" fill="red" />
                     </g>
@@ -349,7 +353,7 @@ class App extends Component {
                 {this.state.dikt4}
                 </p>
                 <div className="grid-item3">
-                  <img src={this.state.bilde4} className="pic" alt="art" />
+                  <img src={this.state.bilde4} className="pic" alt="Select a category to load an image." />
                 </div>
               </div>
             </div>
@@ -361,21 +365,21 @@ class App extends Component {
             <div id="radioBoxes" className="grid-item4">
               <form className="radioForm">
                 <label>Bilde</label>
-                <label><input type="radio" checked={this.state.artTheme === "animal"}  value="animal" onChange={this.handleArtChange} /> Animal</label>
-                <label><input type="radio" checked={this.state.artTheme === "love"}  value="love" onChange={this.handleArtChange} /> Love</label>
-                <label><input type="radio" checked={this.state.artTheme === "technology"}  value="technology" onChange={this.handleArtChange} /> Technology</label>
+                <label><input type="radio" name="imgRadio" checked={this.state.artTheme === "animal"}  value="animal" onChange={this.handleArtChange} /> Animal</label>
+                <label><input type="radio" name="imgRadio" checked={this.state.artTheme === "love"}  value="love" onChange={this.handleArtChange} /> Love</label>
+                <label><input type="radio" name="imgRadio" checked={this.state.artTheme === "technology"}  value="technology" onChange={this.handleArtChange} /> Technology</label>
               </form>
               <form className="radioForm">
                 <label>Lyd</label>
-                <label><input type="radio" checked={this.state.soundTheme === "guitar"}  value="guitar" onChange={this.handleMusicChange}/> Guitar</label>
-                <label><input type="radio" checked={this.state.soundTheme === "piano"}  value="piano" onChange={this.handleMusicChange}/> Piano</label>
-                <label><input type="radio" checked={this.state.soundTheme === "techno"}  value="techno" onChange={this.handleMusicChange}/> Techno</label>
+                <label><input type="radio" name="soundRadio" checked={this.state.soundTheme === "guitar"}  value="guitar" onChange={this.handleMusicChange}/> Guitar</label>
+                <label><input type="radio" name="soundRadio" checked={this.state.soundTheme === "piano"}  value="piano" onChange={this.handleMusicChange}/> Piano</label>
+                <label><input type="radio" name="soundRadio" checked={this.state.soundTheme === "techno"}  value="techno" onChange={this.handleMusicChange}/> Techno</label>
               </form>
               <form className="radioForm">
                 <label>Tekst</label>
-                <label><input type="radio" checked={this.state.textTheme === "art"}  value="art"  onChange={this.handleTextChange}/> Art</label>
-                <label><input type="radio" checked={this.state.textTheme === "love"}  value="love" onChange={this.handleTextChange}/> Love</label>
-                <label><input type="radio" checked={this.state.textTheme === "nature"}  value="nature" onChange={this.handleTextChange}/> Nature</label>
+                <label><input type="radio" name="txtRadio" checked={this.state.textTheme === "art"}  value="art"  onChange={this.handleTextChange}/> Art</label>
+                <label><input type="radio" name="txtRadio" checked={this.state.textTheme === "love"}  value="love" onChange={this.handleTextChange}/> Love</label>
+                <label><input type="radio" name="txtRadio" checked={this.state.textTheme === "nature"}  value="nature" onChange={this.handleTextChange}/> Nature</label>
               </form>
             </div>
           </div>   
